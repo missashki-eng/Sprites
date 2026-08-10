@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="referrer" content="no-referrer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Sprite Checklist">
+  <title>Fortnite Sprite Checklist</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+    body{background:linear-gradient(160deg,#2d1b2e 0%,#3d1a35 40%,#1e1230 100%);min-height:100vh;font-family:-apple-system,system-ui,sans-serif;color:#fff;padding-bottom:60px}
+    #app{max-width:480px;margin:0 auto;position:relative}
+    button{font-family:inherit}
+    #hdr{background:#1e0a22;border-bottom:2px solid rgba(244,143,177,.33);padding:14px 16px 10px;position:sticky;top:0;z-index:20;max-width:480px;margin:0 auto}
+    #hdr h1{text-align:center;font-size:10px;letter-spacing:4px;color:#F48FB1;text-transform:uppercase;margin-bottom:2px}
+    #hdr h2{text-align:center;font-size:20px;font-weight:900;letter-spacing:2px;text-transform:uppercase;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    #stats{display:flex;justify-content:center;gap:16px;font-size:12px;margin-top:6px}
+    #pb{background:rgba(255,255,255,.1);border-radius:10px;height:6px;margin:8px auto 0;max-width:280px}
+    #pf{height:100%;border-radius:10px;background:linear-gradient(90deg,#F48FB1,#CE93D8,#F06292);transition:width .3s;width:0%}
+    .fr{display:flex;gap:3px;margin-top:4px;margin-bottom:4px;flex-wrap:wrap;justify-content:center;padding:0 8px}
+    .fb{padding:2px 5px;border-radius:20px;font-size:7.5px;font-weight:700;flex-shrink:0;border:1px solid rgba(255,255,255,.15);background:transparent;color:#888;cursor:pointer;white-space:nowrap}
+    #content{padding:16px 12px 0}
+    .rh{display:flex;align-items:center;gap:10px;margin-bottom:12px;padding-bottom:8px}
+    .rl{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+    .ss{margin-bottom:20px}
+    .sn{font-size:13px;font-weight:700;margin-bottom:6px;padding-left:2px}
+    .sa{font-size:10px;color:#888;font-weight:400;margin-left:8px}
+    .vg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .vc{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:5px 3px 4px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;transition:border-color .15s;height:115px;justify-content:flex-start;overflow:hidden}
+    .vc img{width:56px;height:56px;object-fit:contain;display:block}
+    .vl{font-size:9px;font-weight:700;line-height:1}
+    .ck{position:absolute;top:4px;right:5px;color:#F48FB1;font-size:13px;font-weight:900;display:none}
+    .ls{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:6px;outline:none;cursor:pointer;background:rgba(255,255,255,.15)}
+    .lv{font-size:9px;font-weight:800;text-align:center;margin-top:2px}
+    #dust-section{padding:12px 12px 0}
+    #dust-box{background:rgba(255,255,255,.04);border:1.5px solid rgba(244,143,177,.3);border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:10px}
+    #dust-icon{font-size:20px;line-height:1}
+    #dust-label{font-size:11px;font-weight:800;letter-spacing:2px;color:#F48FB1;text-transform:uppercase;flex:1}
+    #dust-input-wrap{display:flex;align-items:center;gap:6px}
+    #dust-input{background:rgba(244,143,177,.15);border:1.5px solid rgba(244,143,177,.4);border-radius:10px;color:#fff;font-size:18px;font-weight:800;padding:4px 10px;width:130px;text-align:right;-webkit-appearance:none;outline:none}
+    #dust-input::placeholder{color:rgba(255,255,255,.3)}
+    .bpw{display:flex;justify-content:center}
+    .bpw .vc{width:calc(25% - 5px)}
+    .ls::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:var(--thumb-color,#F48FB1);cursor:pointer}
+    .lr{width:100%;margin-top:4px;padding:0 2px;display:flex;flex-direction:column;gap:2px}
+    .ls{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:6px;outline:none;cursor:pointer;display:block}
+    .ls::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.4);background:var(--thumb-color,#F48FB1);cursor:pointer}
+    .lv{font-size:9px;font-weight:800;text-align:center;margin-top:1px}
+    #share-btn{position:fixed;bottom:24px;right:16px;z-index:100;background:linear-gradient(135deg,#F48FB1,#CE93D8);border:none;border-radius:50px;color:#fff;font-size:12px;font-weight:800;padding:10px 18px;cursor:pointer;box-shadow:0 4px 20px rgba(244,143,177,.5);letter-spacing:.5px;}
+    #share-overlay{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.85);align-items:center;justify-content:center;flex-direction:column;gap:16px;}
+    #share-overlay.active{display:flex;}
+    #share-canvas{max-width:92vw;max-height:75vh;border-radius:16px;}
+    #share-actions{display:flex;gap:12px;}
+    #share-actions button{background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:13px;font-weight:700;padding:10px 22px;cursor:pointer;}
+  </style>
+</head>
+<body>
+<div id="app">
+<div id="hdr">
+  <div style="display:flex;justify-content:center;margin-bottom:4px;">
+    <div style="position:relative;display:inline-flex;align-items:center;background:rgba(244,143,177,.12);border:1px solid rgba(244,143,177,.4);border-radius:20px;padding:3px 12px 3px 12px;">
+      <select id="season-select" style="background:transparent;border:none;color:rgba(244,143,177,.9);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;padding-right:14px;"></select>
+      <span style="position:absolute;right:8px;color:rgba(244,143,177,.9);font-size:8px;pointer-events:none;">▾</span>
+    </div>
+  </div>
+  <h2>Sprite Checklist &#10024;</h2>
+  <div id="stats">
+    <span style="color:#F48FB1">&#10003; <span id="fc">0</span> found</span>
+    <span style="color:#d4a0c0">/ <span id="tc">0</span> total</span>
+    <span style="color:#CE93D8"><span id="rc">0</span> remaining</span>
+  </div>
+  <div id="stats2" style="display:flex;justify-content:center;gap:6px;font-size:12px;margin-top:3px;">
+    <span style="color:#FFD700">&#128081; <span id="mc">0</span> mastered</span>
+    <span style="color:#d4a0c0">/</span>
+    <span style="color:#CE93D8"><span id="mr">0</span> remaining</span>
+  </div>
+  <div id="pb"><div id="pf"></div></div>
+  <div id="search-wrap" style="padding:10px 40px 2px">
+    <input type="text" id="search-input" placeholder="&#128269; Search..." style="width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(244,143,177,.25);border-radius:20px;color:#fff;font-size:10px;padding:3px 12px;outline:none;-webkit-appearance:none;" />
+  </div>
+  <div class="fr" id="rf"></div>
+  <div style="height:1px;background:rgba(244,143,177,.4);margin:12px 30px;"></div>
+  <div class="fr" id="vf"></div>
+  <div class="fr" id="vf2"></div>
+  <div id="vbonus" style="display:none;text-align:center;font-size:10px;color:rgba(255,255,255,.55);padding:4px 12px 0;line-height:1.3;"></div>
+  <div style="height:1px;background:rgba(244,143,177,.4);margin:12px 30px;"></div>
+  <div class="fr" id="sf"></div>
+</div>
+<div id="content"></div>
+<div id="ra"></div>
+</div>
+<script>
+var GH="https://raw.githubusercontent.com/missashki-eng/Sprites/main/";
+var SPRITE_IMGS={
+  "fire_base":        GH+"fire_base.webp",
+  "fire_gold":        GH+"fire_gold.webp",
+  "fire_gummy":       GH+"fire_gummy.webp",
+  "fire_galaxy":      GH+"fire_galaxy.webp",
+  "earth_base":       GH+"earth_base.webp",
+  "earth_gold":       GH+"earth_gold.webp",
+  "earth_gummy":      GH+"earth_gummy.webp",
+  "earth_galaxy":     GH+"earth_galaxy.webp",
+  "duck_base":        GH+"duck_base.webp",
+  "duck_gold":        GH+"duck_gold.webp",
+  "duck_gummy":       GH+"duck_gummy.webp",
+  "duck_galaxy":      GH+"duck_galaxy.webp",
+  "ghost_base":       GH+"ghost_base.webp",
+  "ghost_gold":       GH+"ghost_gold.webp",
+  "ghost_gummy":      GH+"ghost_gummy.webp",
+  "ghost_galaxy":     GH+"ghost_galaxy.webp",
+  "demon_base":       GH+"demon_base.webp",
+  "demon_gold":       GH+"demon_gold.webp",
+  "demon_gummy":      GH+"demon_gummy.webp",
+  "demon_galaxy":     GH+"demon_galaxy.webp",
+  "king_base":        GH+"king_base.webp",
+  "king_gold":        GH+"king_gold.webp",
+  "king_gummy":       GH+"king_gummy.webp",
+  "king_galaxy":      GH+"king_galaxy.webp",
+  "dream_base":       GH+"dream_base.webp",
+  "dream_gold":       GH+"dream_gold.webp",
+  "dream_gummy":      GH+"dream_gummy.webp",
+  "dream_galaxy":     GH+"dream_galaxy.webp",
+  "punk_base":        GH+"punk_base.webp",
+  "punk_gold":        GH+"punk_gold.webp",
+  "punk_gummy":       GH+"punk_gummy.webp",
+  "punk_galaxy":      GH+"punk_galaxy.webp",
+  "zeropoint_base":   GH+"zeropoint_base.webp",
+  "zeropoint_gold":   GH+"zeropoint_gold.webp",
+  "zeropoint_gummy":  GH+"zeropoint_gummy.webp",
+  "zeropoint_galaxy": GH+"zeropoint_galaxy.webp",
+  "burntpeanut_only": GH+"burntpeanut_only.webp",
+  "aura_base":        GH+"aura_base.webp",
+  "aura_gold":        GH+"aura_gold.webp",
+  "aura_gummy":       GH+"aura_gummy.webp",
+  "aura_galaxy":      GH+"aura_galaxy.webp",
+  "fishy_base":       GH+"fishy_base.webp",
+  "fishy_gold":       GH+"fishy_gold.webp",
+  "fishy_gummy":      GH+"fishy_gummy.webp",
+  "fishy_galaxy":     GH+"fishy_galaxy.webp",
+  "striker_base":     GH+"striker_base.webp",
+  "striker_gold":     GH+"striker_gold.webp",
+  "striker_gummy":    GH+"striker_gummy.webp",
+  "striker_galaxy":   GH+"striker_galaxy.webp",
+  "boss_base":        GH+"boss_base.webp",
+  "boss_gold":        GH+"boss_gold.webp",
+  "boss_gummy":       GH+"boss_gummy.webp",
+  "boss_galaxy":      GH+"boss_galaxy.webp",
+  "grim_base":        GH+"grim_base.webp",
+  "grim_gold":        GH+"grim_gold.webp",
+  "grim_gummy":       GH+"grim_gummy.webp",
+  "grim_galaxy":      GH+"grim_galaxy.webp",
+  "water_base":       GH+"water_base.webp",
+  "water_gold":       GH+"water_gold.webp",
+  "water_gummy":      GH+"water_gummy.webp",
+  "water_galaxy":     GH+"water_galaxy.webp",
+  "water_holofoil":   GH+"IMG_4425.webp",
+  "fire_holofoil":    GH+"IMG_4426.webp",
+  "ghost_holofoil":   GH+"IMG_4427.webp",
+  "king_holofoil":    GH+"IMG_4428.webp",
+  "striker_holofoil": GH+"IMG_4429.webp",
+  "grim_cube":    GH+"grim_cube.webp",
+  "boss_cube":    GH+"boss_cube.webp",
+  "fishy_cube":   GH+"fishy_cube.webp",
+  "punk_cube":    GH+"punk_cube.webp",
+  "dream_cube":   GH+"dream_cube.webp",
+  "fire_cube":    GH+"fire_cube.webp",
+  "earth_cube":   GH+"earth_cube.webp",
+  "batman_cube":  GH+"batman_cube.webp",
+  "ironmouse_only":   GH+"ironmouse_only.webp",
+  "johnwick_only":    GH+"johnwick_only.webp",
+  "llama_base":       GH+"llama_base.webp",
+  "llama_gold":       GH+"llama_gold.webp",
+  "llama_gummy":      GH+"llama_gummy.webp",
+  "llama_galaxy":     GH+"llama_galaxy.webp",
+  "peely_base":       GH+"peely_base.webp",
+  "peely_gold":       GH+"peely_gold.webp",
+  "peely_gummy":      GH+"peely_gummy.webp",
+  "peely_galaxy":     GH+"peely_galaxy.webp",
+  "peely_holofoil":   GH+"peely_holofoil.webp",
+  "water_quack":      GH+"water_quack.webp",
+  "earth_quack":      GH+"earth_quack.webp",
+  "fire_quack":       GH+"fire_quack.webp",
+  "zeropoint_quack":  GH+"zeropoint_quack.webp",
+  "grim_gem":         GH+"grim_gem.webp",
+  "llama_gem":        GH+"llama_gem.webp",
+  "water_gem":        GH+"water_gem.webp",
+  "earth_gem":        GH+"earth_gem.webp",
+  "duck_gem":         GH+"duck_gem.webp",
+  "demon_gem":        GH+"demon_gem.webp",
+  "zeropoint_gem":    GH+"zeropoint_gem.webp",
+  "zeropoint_cube":   GH+"zeropoint_cube.webp",
+  "zeropoint_holofoil": GH+"zeropoint_holofoil.webp",
+  "aura_gem":         GH+"aura_gem.webp",
+  "grim_holofoil":    GH+"grim_holofoil.webp",
+  "seven_base":       GH+"seven_base.webp",
+  "seven_gold":       GH+"seven_gold.webp",
+  "seven_gummy":      GH+"seven_gummy.webp",
+  "seven_galaxy":     GH+"seven_galaxy.webp",
+  "seven_holofoil":   GH+"seven_holofoil.webp",
+  "batman_base":      GH+"batman_base.webp",
+  "batman_gold":      GH+"batman_gold.webp",
+  "batman_gummy":     GH+"batman_gummy.webp",
+  "batman_galaxy":    GH+"batman_galaxy.webp",
+  "batman_holofoil":  GH+"batman_holofoil.webp",
+  "air_base":         GH+"air_base.webp",
+  "air_gold":         GH+"air_gold.webp",
+  "air_gummy":        GH+"air_gummy.webp",
+  "air_galaxy":       GH+"air_galaxy.webp",
+  "air_holofoil":     GH+"air_holofoil.webp",
+  "vinijr_only":      GH+"vini jr._base.webp",
+  "pollo_only":       GH+"pollo_base.webp",
+};
+
+var RARITY={
+  Rare:      { color: "#F48FB1", label: "RARE" },
+  Epic:      { color: "#CE93D8", label: "EPIC" },
+  Legendary: { color: "#F06292", label: "LEGENDARY" },
+  Mythic:    { color: "#FF80AB", label: "MYTHIC" },
+};
+var SPRITES_BASE=[
+  { id: "water",       name: "Water Sprite",     rarity: "Rare",      color: "#4FC3F7", ability: "Replenish shield while in water for you and your nearby Squad!",                                        drop: "8.88%" },
+  { id: "fire",        name: "Fire Sprite",       rarity: "Rare",      color: "#FF5722", ability: "Creates a fiery burst when you deal enough damage to an enemy!",                         drop: "8.88%" },
+  { id: "earth",       name: "Earth Sprite",      rarity: "Rare",      color: "#8D6E63", ability: "You have a chance to find additional rare items when opening chests",                 drop: "8.88%" },
+  { id: "duck",        name: "Duck Sprite",        rarity: "Epic",      color: "#FFD54F", ability: "Emoting or Jamming replenishes shields",                              drop: "4.04%"  },
+  { id: "ghost",       name: "Ghost Sprite",       rarity: "Epic",      color: "#B0BEC5", ability: "Grants cloak for a duration upon reloading",                   drop: "4.04%"  },
+  { id: "demon",       name: "Demon Sprite",       rarity: "Epic",      color: "#EF5350", ability: "Siphon some health and shields when you eliminate an opponent",                drop: "4.06%" },
+  { id: "king",        name: "King Sprite",        rarity: "Epic",      color: "#FFD700", ability: "Your Pickaxe deals more damage",                                            drop: "4.04%"  },
+  { id: "dream",       name: "Dream Sprite",       rarity: "Legendary", color: "#CE93D8", ability: "Grants a random item at each level, exploding with legendary loot at Max Level",  drop: "1.85%" },
+  { id: "punk",        name: "Punk Sprite",        rarity: "Legendary", color: "#FF8A65", ability: "Possibly nothing... or infinitely something",              drop: "1.39%" },
+  { id: "zeropoint",   name: "Zero Point Sprite",  rarity: "Mythic",    color: "#00E5FF", ability: "Spawn a Shield Bubble Jr. when you use a healing item on yourself (excluding splashes and grenades)",          drop: "0.000069%" },
+  { id: "burntpeanut", name: "The Burnt Peanut",   rarity: "Mythic",    color: "#FF6D00", ability: "Goop! When eliminating players, you may find more loot. Sometimes mythic!", noVariants: true, drop: "2.14%" },
+  { id: "fishy",    name: "Fishy Sprite",    rarity: "Rare",      color: "#80DEEA", ability: "Swim speed greatly increased. Taking damage also briefly increases movement speed",          drop: "13.79%" },
+  { id: "striker",  name: "Striker Sprite",  rarity: "Epic",      color: "#EF9A9A", ability: "Gain the Overdrive effect when you Mantle, Hurdle, or Wall Scramble",                      drop: "5.74%" },
+  { id: "aura",     name: "Aura Sprite",     rarity: "Epic",      color: "#80CBC4", ability: "Gain a Shock Rock charge when you deal enough damage to enemies!",                         drop: "5.74%" },
+  { id: "boss",     name: "Boss Sprite",     rarity: "Legendary", color: "#FF8A65", ability: "Grants an increase to your max HP and Shield",                                             drop: "2.63%" },
+  { id: "grim",     name: "Grim Sprite",     rarity: "Mythic",    color: "#78909C", ability: "Players who attack you are marked for a duration",                                                                                         drop: "0.000098%" },
+  { id: "seven",    name: "Seven Sprite",    rarity: "Legendary", color: "#FFD700", ability: "Enemy player foot trails are visible in the world for your Squad",                                                                                    drop: "3.63%" },
+  { id: "batman",   name: "Batman Sprite",   rarity: "Mythic",    color: "#78909C", ability: "Grants the ability to launch in the air and deploy the Bat Cape!",                                                                                    drop: "1.44%" },
+  { id: "air",      name: "Air Sprite",      rarity: "Rare",      color: "#81D4FA", ability: "Increases sprinting speed and jump height. Also nullifies fall damage",                                                                               drop: "0.0%" },
+  { id: "vinijr",   name: "Vini Jr. Sprite", rarity: "Mythic",    color: "#78909C", ability: "Sprinting for a short time makes your slide destructive. Slidekicking enemies increases rate of fire and reload speed",  noVariants: true,            drop: "2.14%" },
+  { id: "pollo",    name: "Pollo Sprite",    rarity: "Mythic",    color: "#78909C", ability: "Upon earning an elimination, slowly replenish shield for you and nearby squad members for a duration",                    noVariants: true,            drop: "2.14%" },
+  { id: "ironmouse", name: "Ironmouse Sprite", rarity: "Mythic",    color: "#78909C", ability: "Regenerate health over time when low. While regenerating, gain Cloak and low gravity!",                                       noVariants: true,            drop: "2.14%" },
+  { id: "johnwick",  name: "John Wick Sprite", rarity: "Mythic",    color: "#78909C", ability: "Knocking players reveals others nearby",                                                                                       noVariants: true,            drop: "0.0%" },
+  { id: "llama",     name: "Llama Sprite",     rarity: "Rare",      color: "#81D4FA", ability: "Opening ammo boxes has a chance to grant a weapon upgrade",                                                                                         drop: "4.45%" },
+  { id: "peely",     name: "Peely Sprite",     rarity: "Rare",      color: "#81D4FA", ability: "Emits a ping for players with rare sprites nearby, but marks you on the map",                                                                       drop: "4.62%" },
+
+];
+var VARIANTS=[
+  { key: "base",   label: "Base",   icon: "\u2B21", color: "#f9c8e0", bonus: "Standard ability, no bonus.",               drop: {water:"8.88%", fire:"8.88%", earth:"8.88%", duck:"4.04%", ghost:"4.04%", demon:"4.06%", king:"4.04%", dream:"1.85%", punk:"1.39%", zeropoint:"0.000069%", fishy:"13.79%", striker:"5.74%", aura:"5.74%", boss:"2.63%", grim:"0.000098%", batman:"1.44%", seven:"3.63%", air:"0.0%", llama:"4.45%", peely:"4.62%"} },
+  { key: "gold",   label: "Gold",   icon: "\u2605", color: "#FFD700", bonus: "+XP per elimination.",                      drop: {water:"0.7%", fire:"0.7%", earth:"0.7%", duck:"0.05%", ghost:"0.05%", demon:"0.05%", king:"0.05%", dream:"0.02%", punk:"0.02%", zeropoint:"0.0000008%", fishy:"0.17%", striker:"0.07%", aura:"0.07%", boss:"0.03%", grim:"0.0000012%", batman:"0.17%", seven:"0.43%", air:"0.53%", llama:"0.43%", peely:"0.43%"} },
+  { key: "gummy",  label: "Gummy",  icon: "\u273F", color: "#F48FB1", bonus: "Gain 10% more Sprite Dust upon Extraction",           drop: {water:"4.23%", fire:"4.23%", earth:"4.23%", duck:"1.76%", ghost:"1.76%", demon:"1.76%", king:"1.76%", dream:"0.81%", punk:"0.61%", zeropoint:"0.00003%", fishy:"0.08%", striker:"0.04%", aura:"0.04%", boss:"0.02%", grim:"0.0000006%", batman:"0.1%", seven:"0.26%", air:"0.53%", llama:"0.26%", peely:"0.26%"} },
+  { key: "galaxy", label: "Galaxy", icon: "\u2726", color: "#CE93D8", bonus: "Gain 20% more Ammo whenever picked up in the world",            drop: {water:"0.28%", fire:"0.28%", earth:"0.28%", duck:"0.02%", ghost:"0.02%", demon:"0.000001%", king:"0.02%", dream:"0.01%", punk:"0.004%", zeropoint:"0.0000003%", fishy:"0.06%", striker:"0.02%", aura:"0.02%", boss:"0.01%", grim:"0.0000004%", batman:"0.07%", seven:"0.17%", air:"0.43%", llama:"0.17%", peely:"0.17%"} },
+  { key: "holofoil", label: "Holofoil", icon: "\u25C8", color: "#00E5FF", bonus: "5% chance for your squad to find rare Sprite Variants from looting chests", holofoilOnly: ["water","fire","ghost","king","striker","seven","batman","air","peely","grim","zeropoint"], drop: {batman:"0.34%", water:"0.53%", fire:"0.53%", ghost:"1.23%", king:"1.23%", striker:"1.23%", seven:"0.85%", air:"0.53%", peely:"0.85%", grim:"0.0%", zeropoint:"0.00028%"} },
+  { key: "cube", label: "Cube", icon: "\u25A0", color: "#7C4DFF", bonus: "Gain the Overdrive effect while in the Storm", holofoilOnly: ["grim","boss","fishy","punk","dream","fire","earth","batman","zeropoint"], drop: {batman:"0.02%", fire:"0.21%", earth:"0.21%", fishy:"0.21%", boss:"0.04%", punk:"0.04%", dream:"0.04%", grim:"0.0%", zeropoint:"0.000014%"} },
+  { key: "quack", label: "Quack", icon: "\u224B", color: "#FF8F00", bonus: "Shares 50% of the XP they earn with every other Sprite in your inventory", holofoilOnly: ["water","earth","fire","zeropoint"], drop: {water:"0.0%",earth:"0.0%",fire:"0.0%",zeropoint:"0.000014%"} },
+  { key: "gem",   label: "Gem",   icon: "\u25C6", color: "#E040FB", bonus: "Reduces fall damage by 30%", holofoilOnly: ["grim","llama","water","earth","duck","demon","zeropoint","aura"], drop: {grim:"0.00099%",aura:"0.08%",zeropoint:"0.00001%",demon:"0.1%",duck:"0.1%",earth:"0.37%",water:"0.37%",llama:"0.0%"} },
+];
+var ALL_SPRITES=[];
+function buildAllSprites(){
+  ALL_SPRITES=[];
+  for(var _i=0;_i<SPRITES_BASE.length;_i++){
+  var _s=SPRITES_BASE[_i];
+  if(_s.noVariants){
+    ALL_SPRITES.push({uid:_s.id+"_only",spriteId:_s.id,variantKey:"base",variantLabel:null,variantIcon:null,variantColor:null,id:_s.id,name:_s.name,rarity:_s.rarity,color:_s.color,ability:_s.ability,noVariants:true,drop:_s.drop});
+  } else {
+    for(var _j=0;_j<VARIANTS.length;_j++){
+      var _v=VARIANTS[_j];
+      if(_v.holofoilOnly&&_v.holofoilOnly.indexOf(_s.id)===-1)continue;
+      var _drop=_v.drop&&_v.drop[_s.id]!=null?_v.drop[_s.id]:"0.0%";
+      ALL_SPRITES.push({uid:_s.id+"_"+_v.key,spriteId:_s.id,variantKey:_v.key,variantLabel:_v.label,variantIcon:_v.icon,variantColor:_v.color,id:_s.id,name:_s.name,rarity:_s.rarity,color:_s.color,ability:_s.ability,drop:_drop,bonus:_v.bonus});
+    }
+  }
+  }
+}
+buildAllSprites();
+var activeSeason=(function(){var s=localStorage.getItem("active-season");return s?s:"ch7s3";})();
+var SEASONS={"ch7s3":{label:"Ch.7 S3"}};
+var SK="fortnite-sprite-checklist-v4-"+activeSeason;
+// Migrate old save data to new season-aware key
+(function(){
+  var oldKey="fortnite-sprite-checklist-v4";
+  var newKey="fortnite-sprite-checklist-v4-ch7s3";
+  if(!localStorage.getItem(newKey)&&localStorage.getItem(oldKey)){
+    localStorage.setItem(newKey,localStorage.getItem(oldKey));
+    var oldLevels=localStorage.getItem(oldKey+"-levels");
+    if(oldLevels)localStorage.setItem(newKey+"-levels",oldLevels);
+  }
+})();
+function sg(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function ss(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+var checkedArr=sg(SK,[]);
+if(!Array.isArray(checkedArr)){checkedArr=[];}
+var checkedSet={};
+for(var _ci=0;_ci<checkedArr.length;_ci++){checkedSet[checkedArr[_ci]]=true;}
+var levels=sg(SK+"-levels",{});
+if(!levels||typeof levels!=="object"||Array.isArray(levels)){levels={};}
+var rarityFilter="All";
+var variantFilter="All";
+var showUnchecked=false;
+var showNotMax=false;
+var showOwned=false;
+var showMastered=false;
+var searchQuery="";
+function isChecked(uid){return !!checkedSet[uid];}
+function toggleCheck(uid){if(checkedSet[uid]){delete checkedSet[uid];}else{checkedSet[uid]=true;}save();}
+function save(){var arr=Object.keys(checkedSet);ss(SK,arr);ss(SK+"-levels",levels);}
+function getColor(r){return (RARITY[r]||{color:"#fff"}).color;}
+function updateStats(){
+  var total=ALL_SPRITES.length;
+  var found=Object.keys(checkedSet).length;
+  var mastered=0;
+  for(var _k in checkedSet){if((levels[_k]||0)===5)mastered++;}
+  document.getElementById("fc").textContent=found;
+  document.getElementById("tc").textContent=total;
+  document.getElementById("rc").textContent=total-found;
+  document.getElementById("mc").textContent=mastered;
+  document.getElementById("mr").textContent=found-mastered;
+  document.getElementById("pf").style.width=(total>0?(found/total*100):0)+"%";
+}
+function buildFilters(){
+  var rs=["All","Rare","Epic","Legendary","Mythic"];
+  var rfEl=document.getElementById("rf");
+  rfEl.innerHTML="";
+  for(var i=0;i<rs.length;i++){
+    (function(r){
+      var b=document.createElement("button");
+      b.className="fb";
+      b.textContent=r;
+      if(rarityFilter===r){b.style.borderColor=r==="All"?"#fff":getColor(r);b.style.color=r==="All"?"#fff":getColor(r);b.style.background=r==="All"?"rgba(255,255,255,.15)":(getColor(r)+"33");}
+      b.onclick=function(){rarityFilter=r;render();};
+      rfEl.appendChild(b);
+    })(rs[i]);
+  }
+  var sfEl=document.getElementById("sf");
+  sfEl.innerHTML="";
+  var b1=document.createElement("button");
+  b1.className="fb";
+  b1.textContent="Missing";
+  if(showUnchecked){b1.style.borderColor="#F48FB1";b1.style.color="#F48FB1";b1.style.background="rgba(244,143,177,.2)";}
+  b1.onclick=function(){showUnchecked=!showUnchecked;render();};
+  sfEl.appendChild(b1);
+  var b3=document.createElement("button");
+  b3.className="fb";
+  b3.textContent="Owned";
+  if(showOwned){b3.style.borderColor="#F48FB1";b3.style.color="#F48FB1";b3.style.background="rgba(244,143,177,.2)";}
+  b3.onclick=function(){showOwned=!showOwned;render();};
+  sfEl.appendChild(b3);
+  var b2=document.createElement("button");
+  b2.className="fb";
+  b2.textContent="Not Mastered";
+  if(showNotMax){b2.style.borderColor="#F48FB1";b2.style.color="#F48FB1";b2.style.background="rgba(244,143,177,.2)";}
+  b2.onclick=function(){showNotMax=!showNotMax;render();};
+  sfEl.appendChild(b2);
+  var b4=document.createElement("button");
+  b4.className="fb";
+  b4.textContent="Mastered";
+  if(showMastered){b4.style.borderColor="#F48FB1";b4.style.color="#F48FB1";b4.style.background="rgba(244,143,177,.2)";}
+  b4.onclick=function(){showMastered=!showMastered;render();};
+  sfEl.appendChild(b4);
+  var vfEl=document.getElementById("vf");
+  vfEl.innerHTML="";
+  var vf2El=document.getElementById("vf2");
+  vf2El.innerHTML="";
+  var vs1=["All","Base","Gold","Gummy","Galaxy","Holofoil"];
+  var vs2=["Cube","Quack","Gem"];
+  function makeVBtn(v, el){
+    var vd=null;
+    for(var k=0;k<VARIANTS.length;k++){if(VARIANTS[k].label===v)vd=VARIANTS[k];}
+    var b=document.createElement("button");
+    b.className="fb";
+    b.textContent=(vd?vd.icon+" ":"")+v;
+    if(variantFilter===v&&vd){b.style.borderColor=vd.color;b.style.color=vd.color;b.style.background=vd.color+"33";}
+    if(variantFilter===v&&!vd){b.style.borderColor="#fff";b.style.color="#fff";b.style.background="rgba(255,255,255,.15)";}
+    b.onclick=(function(vv){return function(){variantFilter=vv;render();};})(v);
+    el.appendChild(b);
+  }
+  for(var i=0;i<vs1.length;i++) makeVBtn(vs1[i], vfEl);
+  for(var i=0;i<vs2.length;i++) makeVBtn(vs2[i], vf2El);
+  var vbonus=document.getElementById("vbonus");
+  var activeVariant=null;
+  for(var k=0;k<VARIANTS.length;k++){if(VARIANTS[k].label===variantFilter)activeVariant=VARIANTS[k];}
+  if(activeVariant&&activeVariant.bonus&&variantFilter!=="Base"){
+    vbonus.textContent=activeVariant.icon+" "+activeVariant.bonus;
+    vbonus.style.display="block";
+    vbonus.style.color=activeVariant.color;
+  } else {
+    vbonus.style.display="none";
+  }
+}
+function makeLevelRow(uid,rc,crown){
+  var wrap=document.createElement("div");
+  wrap.className="lr";
+  wrap.onclick=function(e){e.stopPropagation();};
+  var slider=document.createElement("input");
+  slider.type="range";
+  slider.min="1";
+  slider.max="5";
+  slider.value=levels[uid]||1;
+  slider.className="ls";
+  slider.style.background=buildSliderBg(slider.value,rc);
+  slider.style.setProperty("--thumb-color",rc);
+  var lv=document.createElement("div");
+  lv.className="lv";
+  lv.style.color=rc;
+  lv.textContent="Level "+(levels[uid]||1);
+  slider.oninput=function(e){
+    e.stopPropagation();
+    levels[uid]=parseInt(this.value);
+    save();
+    this.style.background=buildSliderBg(this.value,rc);
+    lv.textContent="Level "+this.value;
+    if(crown)crown.style.display=(parseInt(this.value)===5?"block":"none");
+    updateStats();
+  };
+  wrap.appendChild(slider);
+  wrap.appendChild(lv);
+  return wrap;
+}
+function buildSliderBg(val,rc){
+  var pct=(val/5)*100;
+  return "linear-gradient(to right,"+rc+" 0%,"+rc+" "+pct+"%,rgba(255,255,255,.15) "+pct+"%,rgba(255,255,255,.15) 100%)";
+}
+function makeCard(s,rc){
+  var isSpecial=s.variantKey==="gold"||s.variantKey==="gummy"||s.variantKey==="galaxy";
+  var card=document.createElement("div");
+  card.className="vc";
+  card.style.borderColor=isChecked(s.uid)?rc+"99":"rgba(255,255,255,.2)";
+  if(isChecked(s.uid))card.style.background="rgba(244,143,177,.15)";
+  var ck=document.createElement("span");
+  ck.className="ck";
+  ck.textContent="\u2713";
+  ck.style.display=isChecked(s.uid)?"block":"none";
+  card.appendChild(ck);
+  var crown=document.createElement("span");
+  crown.style.cssText="position:absolute;top:3px;left:5px;font-size:11px;line-height:1;display:"+(levels[s.uid]===5?"block":"none")+";z-index:2;";
+  crown.textContent="\uD83D\uDC51";
+  card.appendChild(crown);
+  var imgSrc=SPRITE_IMGS[s.uid];
+  if(imgSrc){var img=document.createElement("img");img.referrerPolicy="no-referrer";img.src=imgSrc;img.alt=s.name||"";card.appendChild(img);}
+  var bv=VARIANTS[0];
+  var lbl=document.createElement("div");
+  lbl.className="vl";
+  lbl.style.color=s.variantColor||bv.color;
+  lbl.textContent=(s.variantIcon||bv.icon)+" "+(s.variantLabel||bv.label);
+  card.appendChild(lbl);
+  if(s.drop){
+    var dropEl=document.createElement("div");
+    dropEl.style.cssText="font-size:8px;color:rgba(255,255,255,.45);line-height:1;margin-top:1px;";
+    dropEl.textContent=s.drop;
+    card.appendChild(dropEl);
+  }
+  var levelRow=makeLevelRow(s.uid,rc,crown);
+  levelRow.style.display=isChecked(s.uid)?"flex":"none";
+  card.appendChild(levelRow);
+  card.onclick=function(){
+    toggleCheck(s.uid);
+    if(isChecked(s.uid)&&!levels[s.uid]){levels[s.uid]=1;save();}
+    if(!isChecked(s.uid)){delete levels[s.uid];save();}
+    updateStats();
+    levelRow.style.display=isChecked(s.uid)?"flex":"none";
+    crown.style.display=(isChecked(s.uid)&&levels[s.uid]===5)?"block":"none";
+    card.style.borderColor=isChecked(s.uid)?rc+"99":"rgba(255,255,255,.2)";
+    card.style.background=isChecked(s.uid)?"rgba(244,143,177,.15)":"rgba(255,255,255,.04)";
+    ck.style.display=isChecked(s.uid)?"block":"none";
+    var sliders=levelRow.querySelectorAll(".ls");
+    if(sliders.length)sliders[0].value=levels[s.uid]||0;
+    var lvLabel=levelRow.querySelector(".lv");
+    if(lvLabel)lvLabel.textContent=(levels[s.uid]||0)>0?"Level "+(levels[s.uid]||0):"";
+  };
+  return card;
+}
+function render(){
+  buildFilters();
+  updateStats();
+  var content=document.getElementById("content");
+  content.innerHTML="";
+  var groups=rarityFilter==="All"?["Rare","Epic","Legendary","Mythic"]:[rarityFilter];
+  for(var gi=0;gi<groups.length;gi++){
+    var rarity=groups[gi];
+    var rc=getColor(rarity);
+    var visible=[];
+    for(var vi=0;vi<ALL_SPRITES.length;vi++){
+      var s=ALL_SPRITES[vi];
+      if(s.rarity!==rarity)continue;
+      if(variantFilter!=="All"&&s.variantLabel!==variantFilter&&!(s.noVariants&&variantFilter==="Base"))continue;
+      if(searchQuery){
+        var words=searchQuery.toLowerCase().split(/\s+/).filter(function(w){return w.length>0;});
+        var searchStr=(s.name+" "+(s.variantLabel||"")+" "+(s.rarity||"")+" "+(s.variantKey==="base"?"base":s.variantKey==="gold"?"gold special":s.variantKey==="gummy"?"gummy special":s.variantKey==="galaxy"?"galaxy special":"")).toLowerCase();
+        var allMatch=true;
+        for(var wi=0;wi<words.length;wi++){if(searchStr.indexOf(words[wi])===-1){allMatch=false;break;}}
+        if(!allMatch)continue;
+      }
+      if(showUnchecked||showNotMax||showOwned||showMastered){
+        var passUnchecked=showUnchecked&&!isChecked(s.uid);
+        var passNotMax=showNotMax&&isChecked(s.uid)&&(levels[s.uid]||0)<5;
+        var passOwned=showOwned&&isChecked(s.uid);
+        var passMastered=showMastered&&isChecked(s.uid)&&(levels[s.uid]||0)===5;
+        if(!passUnchecked&&!passNotMax&&!passOwned&&!passMastered)continue;
+      }
+      visible.push(s);
+    }
+    if(visible.length===0)continue;
+    var sec=document.createElement("div");
+    sec.style.marginBottom="28px";
+    var hdr=document.createElement("div");
+    hdr.className="rh";
+    hdr.style.borderBottom="1px solid "+rc+"44";
+    var rl=document.createElement("span");
+    rl.className="rl";
+    rl.style.color=rc;
+    rl.textContent=rarity;
+    var cnt=document.createElement("span");
+    cnt.style.fontSize="11px";cnt.style.color="#888";
+    var rch=0;
+    for(var vi=0;vi<ALL_SPRITES.length;vi++){if(ALL_SPRITES[vi].rarity===rarity&&isChecked(ALL_SPRITES[vi].uid))rch++;}
+    var rtotal=0;
+    for(var vi=0;vi<ALL_SPRITES.length;vi++){if(ALL_SPRITES[vi].rarity===rarity)rtotal++;}
+    cnt.textContent=rch+"/"+rtotal;
+    hdr.appendChild(rl);hdr.appendChild(cnt);sec.appendChild(hdr);
+    for(var bi=0;bi<SPRITES_BASE.length;bi++){
+      var sprite=SPRITES_BASE[bi];
+      if(sprite.rarity!==rarity)continue;
+      var svariants=[];
+      for(var vi=0;vi<visible.length;vi++){if(visible[vi].spriteId===sprite.id)svariants.push(visible[vi]);}
+      if(svariants.length===0)continue;
+      var ss2=document.createElement("div");
+      ss2.className="ss";
+      var sn=document.createElement("div");
+      sn.className="sn";
+      sn.style.color=rc;
+      sn.innerHTML=sprite.name+'<span class="sa">'+sprite.ability+"</span>";
+      ss2.appendChild(sn);
+      if(sprite.noVariants){
+        var bpw=document.createElement("div");
+        bpw.className="bpw";
+        bpw.appendChild(makeCard(svariants[0],rc));
+        ss2.appendChild(bpw);
+      } else {
+        var grid=document.createElement("div");
+        grid.className="vg";
+        for(var vi=0;vi<svariants.length;vi++){grid.appendChild(makeCard(svariants[vi],rc));}
+        ss2.appendChild(grid);
+      }
+      sec.appendChild(ss2);
+    }
+    content.appendChild(sec);
+  }
+}
+function populateSeasonSelect(){
+  var sel=document.getElementById("season-select");
+  sel.innerHTML="";
+  for(var key in SEASONS){
+    var opt=document.createElement("option");
+    opt.value=key;
+    opt.textContent=SEASONS[key].label;
+    if(key===activeSeason)opt.selected=true;
+    sel.appendChild(opt);
+  }
+  document.getElementById("season-title").textContent="Fortnite "+SEASONS[activeSeason].label;
+}
+document.getElementById("season-select").onchange=function(){
+  var key=this.value;
+  if(!SEASONS[key])return;
+  activeSeason=key;
+  localStorage.setItem("active-season",key);
+  loadSeasonData();
+  SK="fortnite-sprite-checklist-v4-"+activeSeason;
+  var arr=sg(SK,[]);
+  if(!Array.isArray(arr))arr=[];
+  checkedSet={};
+  for(var i=0;i<arr.length;i++)checkedSet[arr[i]]=true;
+  levels=sg(SK+"-levels",{});
+  if(!levels||typeof levels!=="object"||Array.isArray(levels))levels={};
+  buildAllSprites();
+  rarityFilter="All";variantFilter="All";searchQuery="";
+  document.getElementById("search-input").value="";
+  populateSeasonSelect();
+  render();
+};
+populateSeasonSelect();
+function populateSeasonSelect(){
+  var sel=document.getElementById("season-select");
+  if(!sel)return;
+  sel.innerHTML="";
+  for(var key in SEASONS){
+    var opt=document.createElement("option");
+    opt.value=key;opt.textContent="FORTNITE "+SEASONS[key].label.toUpperCase();
+    if(key===activeSeason)opt.selected=true;
+    sel.appendChild(opt);
+  }
+}
+var _sel=document.getElementById("season-select");
+if(_sel){_sel.onchange=function(){
+  activeSeason=this.value;
+  localStorage.setItem("active-season",activeSeason);
+  SK="fortnite-sprite-checklist-v4-"+activeSeason;
+  var arr=sg(SK,[]);if(!Array.isArray(arr))arr=[];
+  checkedSet={};for(var i=0;i<arr.length;i++)checkedSet[arr[i]]=true;
+  levels=sg(SK+"-levels",{});if(!levels||typeof levels!=="object"||Array.isArray(levels))levels={};
+  buildAllSprites();
+  rarityFilter="All";variantFilter="All";searchQuery="";
+  document.getElementById("search-input").value="";
+  populateSeasonSelect();render();
+};}
+populateSeasonSelect();
+try{render();}catch(e){
+  var errDiv=document.createElement("div");
+  errDiv.style.cssText="text-align:center;padding:40px 20px;color:#F48FB1;";
+  errDiv.innerHTML='<div style="font-size:14px;margin-bottom:12px;">\u26a0\ufe0f Failed to load sprites.</div><button onclick="localStorage.removeItem(\''+SK+'\');localStorage.removeItem(\''+SK+'-levels\');location.reload();" style="background:rgba(244,143,177,.2);border:1.5px solid #F48FB1;border-radius:20px;color:#F48FB1;font-size:12px;padding:8px 20px;cursor:pointer;">Clear saved data &amp; reload</button>';
+  document.getElementById("content").appendChild(errDiv);
+}
+var searchInput=document.getElementById("search-input");
+searchInput.value=searchQuery;
+searchInput.oninput=function(){searchQuery=this.value;render();document.getElementById("search-input").focus();};
+</script>
+<button id="share-btn" onclick="generateShareImage()">📸 Sprites I Need</button>
+<div style="text-align:center;padding:20px 16px 60px;"><button onclick="recoverData()" style="background:rgba(244,143,177,.1);border:1px solid rgba(244,143,177,.3);border-radius:20px;color:rgba(244,143,177,.6);font-size:10px;font-weight:700;padding:6px 14px;cursor:pointer;">⚠️ Restore previous save data</button></div>
+<div id="share-overlay" onclick="if(event.target===this)this.classList.remove('active')"><canvas id="share-canvas" style="display:none"></canvas><img id="share-img" style="max-width:92vw;max-height:65vh;border-radius:16px;display:block;" /><div id="share-hint" style="color:rgba(255,255,255,.5);font-size:11px;text-align:center;padding:4px 20px;"></div><div id="share-actions"><button onclick="saveShareImage()">Share / Save</button><button onclick="document.getElementById('share-overlay').classList.remove('active')">Close</button></div></div>
+</body>
+</html>
+<script>
+function generateShareImage(){
+  var missing=[];
+  for(var i=0;i<ALL_SPRITES.length;i++){
+    if(!isChecked(ALL_SPRITES[i].uid)) missing.push(ALL_SPRITES[i]);
+  }
+  if(missing.length===0){alert("You have all sprites! Nothing missing.");return;}
+
+  var cols=4;
+  var cellW=160, cellH=190, pad=16, titleH=80, footH=40;
+  var rows=Math.ceil(missing.length/cols);
+  var W=cols*cellW+pad*2;
+  var H=titleH+rows*cellH+pad+footH;
+
+  var canvas=document.getElementById("share-canvas");
+  canvas.width=W; canvas.height=H;
+  var ctx=canvas.getContext("2d");
+
+  // Background
+  var bg=ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,"#2d1b2e");
+  bg.addColorStop(0.5,"#3d1a35");
+  bg.addColorStop(1,"#1e1230");
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Title
+  ctx.fillStyle="#F48FB1";
+  ctx.font="bold 13px -apple-system,sans-serif";
+  ctx.textAlign="center";
+  ctx.fillText("FORTNITE CH.7 S3 · SPRITE CHECKLIST", W/2, 28);
+  ctx.fillStyle="#fff";
+  ctx.font="bold 22px -apple-system,sans-serif";
+  ctx.fillText("SPRITES I NEED ("+missing.length+")", W/2, 58);
+
+  // Draw cells
+  var imgCache={};
+  var drawn=0;
+
+  function drawCell(s, col, row, img){
+    var x=pad+col*cellW;
+    var y=titleH+row*cellH;
+    var rc=RARITY[s.rarity]?RARITY[s.rarity].color:"#fff";
+
+    // Card bg
+    ctx.fillStyle="rgba(255,255,255,0.05)";
+    roundRect(ctx, x+4, y+4, cellW-8, cellH-8, 14);
+    ctx.fill();
+
+    // Card border
+    ctx.strokeStyle=rc+"66";
+    ctx.lineWidth=2;
+    roundRect(ctx, x+4, y+4, cellW-8, cellH-8, 14);
+    ctx.stroke();
+
+    // Image
+    if(img){
+      try{
+        var iw=90,ih=90;
+        ctx.drawImage(img, x+(cellW-iw)/2, y+14, iw, ih);
+      }catch(e){}
+    }
+
+    // Name
+    ctx.fillStyle=s.color||rc;
+    ctx.font="bold 11px -apple-system,sans-serif";
+    ctx.textAlign="center";
+    var name=s.name.replace(" Sprite","").replace("The ","");
+    ctx.fillText(name, x+cellW/2, y+116);
+
+    // Variant
+    if(s.variantLabel){
+      ctx.fillStyle=s.variantColor||"#fff";
+      ctx.font="bold 10px -apple-system,sans-serif";
+      ctx.fillText((s.variantIcon||"")+" "+s.variantLabel, x+cellW/2, y+132);
+    }
+  }
+
+  function roundRect(ctx,x,y,w,h,r){
+    ctx.beginPath();
+    ctx.moveTo(x+r,y);
+    ctx.lineTo(x+w-r,y);
+    ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+    ctx.lineTo(x+w,y+h-r);
+    ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+    ctx.lineTo(x+r,y+h);
+    ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+    ctx.lineTo(x,y+r);
+    ctx.quadraticCurveTo(x,y,x+r,y);
+    ctx.closePath();
+  }
+
+  // Footer
+  function drawFooter(){
+    ctx.fillStyle="rgba(244,143,177,0.5)";
+    ctx.font="10px -apple-system,sans-serif";
+    ctx.textAlign="center";
+    ctx.fillText("Generated by Sprite Checklist", W/2, H-14);
+  }
+
+  // Load all images then draw
+  var toLoad=missing.length;
+  var imgs={};
+  function tryDraw(){
+    drawn++;
+    if(drawn>=toLoad){
+      for(var i=0;i<missing.length;i++){
+        var col=i%cols, row=Math.floor(i/cols);
+        drawCell(missing[i], col, row, imgs[missing[i].uid]||null);
+      }
+      drawFooter();
+      document.getElementById("share-overlay").classList.add("active");
+    }
+  }
+
+  for(var i=0;i<missing.length;i++){
+    (function(s){
+      var imgUrl=SPRITE_IMGS[s.uid];
+      if(!imgUrl){tryDraw();return;}
+      var im=new Image();
+      im.crossOrigin="anonymous";
+      im.onload=function(){imgs[s.uid]=im;tryDraw();};
+      im.onerror=function(){tryDraw();};
+      im.src=imgUrl;
+    })(missing[i]);
+  }
+}
+
+function recoverData(){
+  var oldKey="fortnite-sprite-checklist-v4";
+  var newKey="fortnite-sprite-checklist-v4-ch7s3";
+  var old=localStorage.getItem(oldKey);
+  if(old){
+    localStorage.setItem(newKey,old);
+    var oldL=localStorage.getItem(oldKey+"-levels");
+    if(oldL)localStorage.setItem(newKey+"-levels",oldL);
+    alert("Data restored! Reloading...");
+    location.reload();
+  } else {
+    alert("No old save data found under the original key. It may have already been migrated or cleared.");
+  }
+}
+function saveShareImage(){
+  var canvas=document.getElementById("share-canvas");
+  var a=document.createElement("a");
+  a.download="sprites-i-need.png";
+  a.href=canvas.toDataURL("image/png");
+  a.click();
+}
+</script>
